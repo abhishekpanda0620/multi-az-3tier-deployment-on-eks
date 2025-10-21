@@ -6,7 +6,6 @@ locals {
   }
 }
 
-# ✅ VPC module
 module "vpc" {
   source       = "./modules/vpc"
   name         = "multi-az-vpc"
@@ -14,13 +13,11 @@ module "vpc" {
   vpc_cidr     = var.vpc_cidr
   tags         = local.tags
 }
-
-# ✅ EKS module
 module "eks" {
   source = "./modules/eks"
 
-  cluster_name = var.cluster_name
-  vpc_id       = module.vpc.vpc_id
+  cluster_name   = var.cluster_name
+  vpc_id         = module.vpc.vpc_id
   private_subnets = module.vpc.private_subnets
   tags         = local.tags
 }
